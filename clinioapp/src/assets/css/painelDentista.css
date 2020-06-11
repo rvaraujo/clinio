@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,700;1,700&display=swap');
+
+.fullheight{
+    height:100vh;
+    min-height:100vh;
+}
+
+.entireheight{
+    height:80vh;
+    min-height:80vh;
+}
+
+.blank-area{
+    background-color: #fff;
+    border-radius: 3px;
+    border-radius: .28571429rem;
+    height:100vh;
+    min-height:100vh;
+}
+
+.action-bar{
+    background-color: #fff;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: .28571429rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-bar i{
+    font-size: 1.3rem;
+    padding-right: 5px;
+}
+.action-bar button{
+    margin-right: 10px;
+}
+
+.header{
+    background-color: rgba(0,0,0,.5);
+    min-width:100vw;
+    min-height: 50px;
+    padding:10px;
+    padding-left:20px;
+    align-items: center;
+    display: flex;
+}
+
+.content{
+    padding:0;
+}
+
+.paddingzero{
+    padding:0;
+}
+
+.header-brand{
+    align-items: center;
+    display: flex;
+}
+
+.header-content{
+    justify-content: flex-end;
+    display: flex;
+}
+
+.header-content i {
+    color:#fff;
+    font-size:x-large;
+    padding-left:15px;
+    padding-top: 10px;
+}
+
+.header-badge{
+    background-color: transparent;
+    color: #ffe57f ;
+    padding-top: 10px;
+}
+
+.logo{
+    width: 44px;
+    height: 36px;
+    padding-right:10px;
+}
+
+.boxFlex{
+    display:flex;
+}
+
+.fc-unthemed{
+    background-color: #e0f2f1;
+}
+
+.avatar{
+     width: 48px;
+    height: 48px;
+    margin-left:20px;
+}
+
+body{
+    background: url('../img/blur-bg.jpg') center center no-repeat;
+    position: fixed;
+    background-size: cover;
+}
+
+.appname{
+    color:#fff;
+    font-family: 'Amaranth', sans-serif;
+    letter-spacing: 5px;
+    font-size: xx-large;
+    padding-top:10px;
+}
+
+.incomingmessage{
+    color: #ffe57f !important;
+}
+

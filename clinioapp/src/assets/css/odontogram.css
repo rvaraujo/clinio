@@ -1,0 +1,13 @@
+.addButton{
+    justify-content: flex-end;
+    display: flex;
+}
+
+.padding-left-10{
+    padding-left: 10px;
+}
+
+.padding-top-10{
+    padding-top: 10px;
+}
+
