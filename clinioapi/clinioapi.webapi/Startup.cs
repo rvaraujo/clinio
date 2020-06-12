@@ -34,29 +34,12 @@ namespace clinioapi.webapi
             services.AddTransient<PatientService>();
             services.AddTransient<AppointmentService>();
             services.AddTransient<ParametersService>();
+            services.AddTransient<ClinicService>();
 
             services.AddDbContext<ClinioContext>(options =>
                 options.UseLazyLoadingProxies()
                 .UseNpgsql(Configuration.GetConnectionString("cliniodb"), b => b.MigrationsAssembly("clinioapi.webapi")));
-
-            CultureInfo[] supportedCultures = new[]
-                {
-                    
-                    new CultureInfo("fr-FR")
-                };
-
-                services.Configure<RequestLocalizationOptions>(options =>
-                {
-                    options.DefaultRequestCulture = new RequestCulture("fr-FR");
-                    options.SupportedCultures = supportedCultures;
-                    options.SupportedUICultures = supportedCultures;
-                    options.RequestCultureProviders = new List<IRequestCultureProvider>
-                    {
-                        new QueryStringRequestCultureProvider(),
-                        new CookieRequestCultureProvider()
-                    };
-                });
-
+  
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -69,24 +52,10 @@ namespace clinioapi.webapi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            
-
-            CultureInfo[] supportedCultures = new[]
-                {
-                    
-                    new CultureInfo("fr-FR")
-                };
-            
-
+        
             app.UseHttpsRedirection();
 
-            app.UseRequestLocalization(new RequestLocalizationOptions{
-                DefaultRequestCulture = new RequestCulture("fr-FR"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures= supportedCultures
-            });
-
+           
             app.UseRouting();
 
              app.UseCors(option => {

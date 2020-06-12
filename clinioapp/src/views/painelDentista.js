@@ -103,14 +103,7 @@ const columns = [
 
     generateAppointmentsMatrix(){
         let self = this;
-        let apppointments=[];
-        // let now = Moment();
-        // let startTime = Moment(`${now.format('yyy-MM-DDT08:00:00')}`);
-        // let endTime = Moment(`${now.format('yyy-MM-DDT19:30:00')}`);
-   
-        // for (var d = startTime; d <= endTime; d.add(30,'minute')) {
-        //     apppointments.push({time:d.format()});
-        // }
+        
 
         ScheduleService.getAppointmentsByDentist('d999bbd4-b513-4cb0-b1f0-93bd1384b27a','2020-06-12').then(function(res){
           self.setState({appointments: res, isLoadingAppointments: false});
@@ -179,8 +172,8 @@ const columns = [
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header className="procedure-area">
+        <Modal.Title  id="contained-modal-title-vcenter">
           {this.state.modalInfo.title}
         </Modal.Title>
       </Modal.Header>

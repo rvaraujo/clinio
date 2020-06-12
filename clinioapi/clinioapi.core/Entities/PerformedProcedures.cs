@@ -9,9 +9,8 @@ namespace clinioapi.core.Entities
         public string ProcedureId { get; set; }
         public string AppointmentId { get; set; }
         public string PatientId { get; set; }
-
         public int? ToothId{ get; set; }
-
+        public string Comments{ get; set; }
         public virtual Patient Patient{ get; set; }
         public virtual Procedure Procedure{ get; set; }
         public virtual Appointment Appointment{ get; set; }

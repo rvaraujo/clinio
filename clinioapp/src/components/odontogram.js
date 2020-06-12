@@ -10,41 +10,6 @@ import OdontogramPicture from '../assets/img/odontograma.png';
 import  '../assets/css/odontogram.css';
 
 
-// const tooths =[
-//     {id: 11,name:'Incisivo Central Superior Direito'},
-//     {id: 12,name:'Incisivo Lateral Superior Direito'},
-//     {id: 13,name:'Canino Superior Direito'},
-//     {id: 14,name:'Primeiro Premolar Superior Direito'},
-//     {id: 15,name:'Segundo Premolar Superior Direito'},
-//     {id: 16,name:'Primeiro Molar Superior Direito'},
-//     {id: 17,name:'Segundo Molar Superior Direito'},
-//     {id: 18,name:'Terceiro Molar Superior Direito'},
-//     {id: 21,name:'Incisivo Central Superior Esquerdo'},
-//     {id: 22,name:'Incisivo Lateral Superior Esquerdo'},
-//     {id: 23,name:'Canino Superior Esquerdo'},
-//     {id: 24,name:'Primeiro Premolar Superior Esquerdo'},
-//     {id: 25,name:'Segundo Premolar Superior Esquerdo'},
-//     {id: 26,name:'Primeiro Molar Superior Esquerdo'},
-//     {id: 27,name:'Segundo Molar Superior Esquerdo'},
-//     {id: 28,name:'Terceiro Molar Superior Esquerdo'},
-//     {id: 31,name:'Incisivo Central Inferior Esquerdo'},
-//     {id: 32,name:'Incisivo Lateral Inferior Esquerdo'},
-//     {id: 33,name:'Canino Inferior Esquerdo'},
-//     {id: 34,name:'Primeiro Premolar Inferior Esquerdo'},
-//     {id: 35,name:'Segundo Premolar Inferior Esquerdo'},
-//     {id: 36,name:'Primeiro Molar Inferior Esquerdo'},
-//     {id: 37,name:'Segundo Molar Inferior Esquerdo'},
-//     {id: 38,name:'Terceiro Molar Inferior Esquerdo'},
-//     {id: 41,name:'Incisivo Central Inferior Direito'},
-//     {id: 42,name:'Incisivo Lateral Inferior Direito'},
-//     {id: 43,name:'Canino Inferior Direito'},
-//     {id: 44,name:'Primeiro Premolar Inferior Direito'},
-//     {id: 45,name:'Segundo Premolar Inferior Direito'},
-//     {id: 46,name:'Primeiro Molar Inferior Direito'},
-//     {id: 47,name:'Segundo Molar Inferior Direito'},
-//     {id: 48,name:'Terceiro Molar Inferior Direito'},
-// ]
-
 const odontogramMap ={
     name: 'OdontogramMap',
     areas:[
@@ -156,6 +121,8 @@ export default class Odontogram extends React.Component {
         };
 
         this.handleToothClick=this.handleToothClick.bind(this);
+        this.renderPreExistingProcedure=this.renderPreExistingProcedure.bind(this);
+        this.renderPerformedProcedure=this.renderPerformedProcedure.bind(this);
         
     }
     handleToothClick(event){
@@ -200,6 +167,48 @@ export default class Odontogram extends React.Component {
         // this.setState({procedures: this.props.procedures,performedProcedures:this.props.performedProcedures});
      }
 
+
+    renderPreExistingProcedure(){
+        if(this.state.currentTooth !== '')
+            return <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">Procedimentos Pré-Existentes</Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                <div className="add-button-area">
+                        <Button className="add-button" onClick={()=>{this.props.openAddPreExistingProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
+                    </div>
+                <DataTable  
+                    noDataComponent="Nenhum procedimento registrado"
+                    noHeader={true}
+                    noTableHead={true}
+                    columns={columnsPreExistingProcedures}
+                    data={this.state.currentTooth.preExistingProcedures}
+                     />
+                </Card.Body>
+            </Accordion.Collapse>
+        </Card>
+    }
+
+    renderPerformedProcedure(){
+        if(this.state.currentTooth !== '')
+        return <Card>
+        <Accordion.Toggle as={Card.Header} eventKey="1">Procedimentos Realizados</Accordion.Toggle>
+        <Accordion.Collapse eventKey="1">
+            <Card.Body>
+                <div className="add-button-area">
+                    <Button className="add-button" onClick={()=>{this.props.openAddPerformedProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
+                </div>
+                <DataTable  
+                    noDataComponent="Nenhum procedimento registrado"
+                    noHeader={true}
+                    noTableHead={true}
+                    columns={columnsProceduresPerformed}
+                    data={this.state.currentTooth.performedProcedures}
+                    />
+            </Card.Body>
+        </Accordion.Collapse>
+    </Card>
+    }
      
 
     render(){
@@ -210,6 +219,7 @@ export default class Odontogram extends React.Component {
                      <ImageMapper width={285} imgWidth={385} src={OdontogramPicture} map={odontogramMap} onClick={area => this.handleToothClick(area)} />
                  </Col>
                  <Col xs={6}>
+                    
                     <Card>
                         <Card.Header>Odontograma</Card.Header>
                         {this.state.currentTooth !=='' && 
@@ -217,40 +227,8 @@ export default class Odontogram extends React.Component {
         }
                     </Card>
                     <Accordion>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="0">Procedimentos Pré-Existentes</Accordion.Toggle>
-                            <Accordion.Collapse eventKey="0">
-                                <Card.Body>
-                                <div className="add-button-area">
-                                        <Button className="add-button" onClick={()=>{this.props.openAddPreExistingProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
-                                    </div>
-                                <DataTable  
-                                    noDataComponent="Nenhum procedimento registrado"
-                                    noHeader={true}
-                                    noTableHead={true}
-                                    columns={columnsPreExistingProcedures}
-                                    data={this.state.currentTooth.preExistingProcedures}
-                                     />
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="1">Procedimentos Realizados</Accordion.Toggle>
-                            <Accordion.Collapse eventKey="1">
-                                <Card.Body>
-                                    <div className="add-button-area">
-                                        <Button className="add-button" onClick={()=>{this.props.openAddPerformedProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
-                                    </div>
-                                    <DataTable  
-                                        noDataComponent="Nenhum procedimento registrado"
-                                        noHeader={true}
-                                        noTableHead={true}
-                                        columns={columnsProceduresPerformed}
-                                        data={this.state.currentTooth.performedProcedures}
-                                        />
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
+                        {this.renderPreExistingProcedure()}
+                        {this.renderPerformedProcedure()}
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="2">Procedimentos Gerais Realizados</Accordion.Toggle>
                             <Accordion.Collapse eventKey="2">
