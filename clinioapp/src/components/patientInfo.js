@@ -4,15 +4,10 @@ import {KeyboardDatePicker,MuiPickersUtilsProvider} from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import CepService from '../services/cepService.js';
 import Moment from 'moment';
-
+import ParametersService from '../services/parametersService.js';
 
 
 import "../assets/css/patientInfo.css";
-
-// function mapStateToProps(state) {
-//     return { currentPatient: state.currentPatient }
-//   }
-
 
   export default  class PatientInfo extends React.Component {
     constructor(props) {
@@ -21,8 +16,12 @@ import "../assets/css/patientInfo.css";
 
         this.state = {
             validated:false,
-            currentPatient:''
+            currentPatient:'',
+            genders:[],
+            insurances:[]
         };
+
+        
 
         this.handleSubmit=this.handleSubmit.bind(this);
         this.addressSearch=this.addressSearch.bind(this);
@@ -49,16 +48,35 @@ import "../assets/css/patientInfo.css";
 
     
 componentDidMount(){
-    this.setState({currentPatient: this.props.currentPatient});
+    var self = this;
+    ParametersService.getGenders().then(function(res){
+        let genderOptions= res.map((item)=>{
+            return <option key={item.key} value={item.key}>{item.value}</option>;
+        });
+        genderOptions.splice(0,0,<option key={0} value={''}>Selecione...</option>);
+        
+        self.setState({genders:genderOptions});
+    });
+
+    ParametersService.getInsurances().then(function(res){
+        let insuranceOptions= res.map((item)=>{
+            return <option  key={item.key} value={item.key}>{item.value}</option>;
+        });
+        insuranceOptions.splice(0,0,<option key={0} value={''}>Selecione...</option>);
+        
+        self.setState({insurances:insuranceOptions});
+    });
+
+    self.setState({currentPatient: this.props.currentPatient});
 }
    
 
-    componentWillReceiveProps(nextProps){
+    // componentWillReceiveProps(nextProps){
+    //   console.log(nextProps);
+    // //    this.setState({currentPatient: nextProps.currentPatient},function(){
       
-       this.setState({currentPatient: nextProps.currentPatient},function(){
-      
-       });
-    }
+    // //    });
+    // }
     render(){
      
         return (
@@ -107,10 +125,8 @@ componentDidMount(){
                             <Form.Label>Sexo</Form.Label>
                             <Form.Control   as="select" 
                                             required
-                                            value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.gender:''}>
-                                <option value={''}>Selecione...</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Feminino</option>
+                                            value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.genderId:''}>
+                                {this.state.genders}
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">Informe o Gênero do Paciente</Form.Control.Feedback>
                         </Form.Group>
@@ -118,14 +134,8 @@ componentDidMount(){
                             <Form.Label>Convênio</Form.Label>
                             <Form.Control   as="select" 
                                             required
-                                            value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.insurance:''}>
-                                <option value={''}>Selecione...</option>
-                                <option value="1">Particular</option>
-                                <option value="2">Odontosystem</option>
-                                <option value="3">Uniodonto</option>
-                                <option value="4">Amil Dental</option>
-                                <option value="5">Hapvida</option>
-                                <option value="6">Odontoart</option>
+                                            value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.insuranceId:''}>
+                                {this.state.insurances}
                             </Form.Control>
                             <Form.Control.Feedback type="invalid">Informe o Tipo de Convênio do Paciente</Form.Control.Feedback>
                         </Form.Group>
@@ -183,7 +193,7 @@ componentDidMount(){
                         <Form.Label>Complemento</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={this.state.currentPatient!==undefined?this.state.currentPatient.addressComplement:''}
+                                        value={this.state.currentPatient!==undefined?this.state.currentPatient.complement:''}
                                         placeholder="Complemento"
                                     />
                     </Form.Row>
@@ -196,4 +206,3 @@ componentDidMount(){
         );
     }
 }
-// export default connect(mapStateToProps)(PatientInfo);

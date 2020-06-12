@@ -12,7 +12,6 @@ export default class OdontogramHeader extends React.Component {
         this.setState({currentTooth: this.props.currentTooth});
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         this.setState({currentTooth: nextProps.currentTooth});
     }
     render(){

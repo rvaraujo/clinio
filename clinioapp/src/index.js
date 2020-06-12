@@ -11,6 +11,9 @@ import './App.scss';
 import Home from "views/home.js";
 import PainelDentista from "views/painelDentista.js";
 
+import 'moment/locale/pt-br';
+
+
 
 
 ReactDOM.render(

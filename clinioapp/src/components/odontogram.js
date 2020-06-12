@@ -1,48 +1,88 @@
 import React from "react";
-import {Container, Col, Accordion,Card, Form, Button } from 'react-bootstrap';
+import {Container, Col, Accordion,Card, Button } from 'react-bootstrap';
 import DataTable from 'react-data-table-component'; 
 import Moment from 'moment';
-
+import ImageMapper from 'react-image-mapper';
+import ParametersService from '../services/parametersService.js';
 import OdontogramHeader from '../components/odontogramHeader.js';
 
 import OdontogramPicture from '../assets/img/odontograma.png';
 import  '../assets/css/odontogram.css';
 
 
-const tooths =[
-    {id: 11,name:'Incisivo Central Superior Direito'},
-    {id: 12,name:'Incisivo Lateral Superior Direito'},
-    {id: 13,name:'Canino Superior Direito'},
-    {id: 14,name:'Primeiro Premolar Superior Direito'},
-    {id: 15,name:'Segundo Premolar Superior Direito'},
-    {id: 16,name:'Primeiro Molar Superior Direito'},
-    {id: 17,name:'Segundo Molar Superior Direito'},
-    {id: 18,name:'Terceiro Molar Superior Direito'},
-    {id: 21,name:'Incisivo Central Superior Esquerdo'},
-    {id: 22,name:'Incisivo Lateral Superior Esquerdo'},
-    {id: 23,name:'Canino Superior Esquerdo'},
-    {id: 24,name:'Primeiro Premolar Superior Esquerdo'},
-    {id: 25,name:'Segundo Premolar Superior Esquerdo'},
-    {id: 26,name:'Primeiro Molar Superior Esquerdo'},
-    {id: 27,name:'Segundo Molar Superior Esquerdo'},
-    {id: 28,name:'Terceiro Molar Superior Esquerdo'},
-    {id: 31,name:'Incisivo Central Inferior Esquerdo'},
-    {id: 32,name:'Incisivo Lateral Inferior Esquerdo'},
-    {id: 33,name:'Canino Inferior Esquerdo'},
-    {id: 34,name:'Primeiro Premolar Inferior Esquerdo'},
-    {id: 35,name:'Segundo Premolar Inferior Esquerdo'},
-    {id: 36,name:'Primeiro Molar Inferior Esquerdo'},
-    {id: 37,name:'Segundo Molar Inferior Esquerdo'},
-    {id: 38,name:'Terceiro Molar Inferior Esquerdo'},
-    {id: 41,name:'Incisivo Central Inferior Direito'},
-    {id: 42,name:'Incisivo Lateral Inferior Direito'},
-    {id: 43,name:'Canino Inferior Direito'},
-    {id: 44,name:'Primeiro Premolar Inferior Direito'},
-    {id: 45,name:'Segundo Premolar Inferior Direito'},
-    {id: 46,name:'Primeiro Molar Inferior Direito'},
-    {id: 47,name:'Segundo Molar Inferior Direito'},
-    {id: 48,name:'Terceiro Molar Inferior Direito'},
-]
+// const tooths =[
+//     {id: 11,name:'Incisivo Central Superior Direito'},
+//     {id: 12,name:'Incisivo Lateral Superior Direito'},
+//     {id: 13,name:'Canino Superior Direito'},
+//     {id: 14,name:'Primeiro Premolar Superior Direito'},
+//     {id: 15,name:'Segundo Premolar Superior Direito'},
+//     {id: 16,name:'Primeiro Molar Superior Direito'},
+//     {id: 17,name:'Segundo Molar Superior Direito'},
+//     {id: 18,name:'Terceiro Molar Superior Direito'},
+//     {id: 21,name:'Incisivo Central Superior Esquerdo'},
+//     {id: 22,name:'Incisivo Lateral Superior Esquerdo'},
+//     {id: 23,name:'Canino Superior Esquerdo'},
+//     {id: 24,name:'Primeiro Premolar Superior Esquerdo'},
+//     {id: 25,name:'Segundo Premolar Superior Esquerdo'},
+//     {id: 26,name:'Primeiro Molar Superior Esquerdo'},
+//     {id: 27,name:'Segundo Molar Superior Esquerdo'},
+//     {id: 28,name:'Terceiro Molar Superior Esquerdo'},
+//     {id: 31,name:'Incisivo Central Inferior Esquerdo'},
+//     {id: 32,name:'Incisivo Lateral Inferior Esquerdo'},
+//     {id: 33,name:'Canino Inferior Esquerdo'},
+//     {id: 34,name:'Primeiro Premolar Inferior Esquerdo'},
+//     {id: 35,name:'Segundo Premolar Inferior Esquerdo'},
+//     {id: 36,name:'Primeiro Molar Inferior Esquerdo'},
+//     {id: 37,name:'Segundo Molar Inferior Esquerdo'},
+//     {id: 38,name:'Terceiro Molar Inferior Esquerdo'},
+//     {id: 41,name:'Incisivo Central Inferior Direito'},
+//     {id: 42,name:'Incisivo Lateral Inferior Direito'},
+//     {id: 43,name:'Canino Inferior Direito'},
+//     {id: 44,name:'Primeiro Premolar Inferior Direito'},
+//     {id: 45,name:'Segundo Premolar Inferior Direito'},
+//     {id: 46,name:'Primeiro Molar Inferior Direito'},
+//     {id: 47,name:'Segundo Molar Inferior Direito'},
+//     {id: 48,name:'Terceiro Molar Inferior Direito'},
+// ]
+
+const odontogramMap ={
+    name: 'OdontogramMap',
+    areas:[
+        {name: "48", shape: "circle", coords: [62,374,19]},
+        {name: "47", shape: "circle", coords: [75,411,19]},
+        {name: "46", shape: "circle", coords: [83,452,18]},
+        {name: "45", shape: "circle", coords: [96,489,14]},
+        {name: "44", shape: "circle", coords: [109,519,14]},
+        {name: "43", shape: "circle", coords: [125,543,15]},
+        {name: "42", shape: "circle", coords: [155,560,15]},
+        {name: "41", shape: "circle", coords: [181,568,12]},
+        {name: "31", shape: "circle", coords: [205,568,12]},
+        {name: "32", shape: "circle", coords: [231,558,14]},
+        {name: "33", shape: "circle", coords: [259,544,15]},
+        {name: "34", shape: "circle", coords: [275,519,16]},
+        {name: "35", shape: "circle", coords: [289,489,14]},
+        {name: "36", shape: "circle", coords: [299,452,20]},
+        {name: "37", shape: "circle", coords: [311,411,18]},
+        {name: "38", shape: "circle", coords: [322,373,18]},
+        {name: "18", shape: "circle", coords: [50,257,20]},
+        {name: "17", shape: "circle", coords: [52,214,21]},
+        {name: "16", shape: "circle", coords: [60,170,22]},
+        {name: "15", shape: "circle", coords: [75,132,14]},
+        {name: "14", shape: "circle", coords: [87,104,16]},
+        {name: "13", shape: "circle", coords: [102,70,15]},
+        {name: "12", shape: "circle", coords: [131,50,14]},
+        {name: "11", shape: "circle", coords: [170,39,19]},
+        {name: "21", shape: "circle", coords: [215,42,18]},
+        {name: "22", shape: "circle", coords: [255,49,16]},
+        {name: "23", shape: "circle", coords: [283,69,16]},
+        {name: "24", shape: "circle", coords: [300,102,17]},
+        {name: "25", shape: "circle", coords: [313,133,13]},
+        {name: "26", shape: "circle", coords: [326,171,20]},
+        {name: "27", shape: "circle", coords: [333,215,19]},
+        {name: "28", shape: "circle", coords: [338,258,18]}
+    ]
+};
+
 const columnsPreExistingProcedures = [
     {
       name: '',
@@ -111,28 +151,28 @@ export default class Odontogram extends React.Component {
             currentToothStatus:this.props.currentToothStatus,
             preExistingProcedures: this.props.preExistingProcedures,
             performedProcedures: this.props.performedProcedures,
-            procedures: this.props.procedures
+            procedures: this.props.procedures,
+            tooths:[]
         };
 
         this.handleToothClick=this.handleToothClick.bind(this);
+        
     }
     handleToothClick(event){
 
-        console.log(event.target.title);
-       
-        let _currentTooth = tooths.filter((tooth)=>{
-            return tooth.id === parseInt(event.target.title)
+        let _currentTooth = this.state.tooths.filter((tooth)=>{
+            return tooth.id === parseInt(event.name)
         });
 
         let toothStatus  = this.state.currentToothStatus === undefined?[]:this.state.currentToothStatus.filter((tooth)=>{
             return tooth.id ===_currentTooth[0].id
         });
 
+        
         let toothPreExistingProcedures = this.state.preExistingProcedures===undefined?[]:this.state.preExistingProcedures.filter((procedure)=>{
             return procedure.toothId === _currentTooth[0].id;
         });
 
-        
         let toothPerformedProcedures = this.state.performedProcedures===undefined?[]:this.state.performedProcedures.filter((procedure)=>{
             return procedure.toothId === _currentTooth[0].id;
         });
@@ -144,59 +184,30 @@ export default class Odontogram extends React.Component {
         this.setState({currentTooth: {..._currentTooth[0], absent:_tooth.absent, damaged: _tooth.damaged, recovered: _tooth.recovered, implanted: _tooth.implanted,preExistingProcedures: toothPreExistingProcedures,performedProcedures: toothPerformedProcedures}});
     }
 
-    componentWillReceiveProps(nextProps){
-      
-        this.setState({ currentToothStatus: nextProps.currentToothStatus, 
-                        preExistingProcedures: nextProps.preExistingProcedures,
-                        performedProcedures: nextProps.performedProcedures, 
-                        procedures: nextProps.procedures
-                    });
-     }
+    static getDerivedStateFromProps(props, state){
+        return {procedures: props.procedures,performedProcedures:props.performedProcedures};
+        
+    }
+
      componentDidMount(){
-       
-         this.setState({procedures: this.props.procedures});
+        var self = this;
+        ParametersService.getTooths().then(function(res){
+            let _tooths= res.map((item)=>{
+                return {id:item.key, name:item.value};
+            });
+            self.setState({tooths:_tooths,procedures: self.props.procedures,performedProcedures:self.props.performedProcedures});
+        });
+        // this.setState({procedures: this.props.procedures,performedProcedures:this.props.performedProcedures});
      }
+
+     
 
     render(){
         return(
             <>
              <Container className="boxFlex fullheight content" fluid>
-                 <Col xs={6}>
-                    <img src={OdontogramPicture} useMap="#image-map" alt="Odontograma" />
-                    <map name="image-map" >
-                        <area onClick={this.handleToothClick} target="" alt="48" title="48" href="#!" coords="62,374,19" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="47" title="47" href="#!" coords="75,411,19" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="46" title="46" href="#!" coords="83,452,18" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="45" title="45" href="#!" coords="96,489,14" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="44" title="44" href="#!" coords="109,519,14" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="43" title="43" href="#!" coords="125,543,15" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="42" title="42" href="#!" coords="155,560,15" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="41" title="41" href="#!" coords="181,568,12" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="31" title="31" href="#!" coords="205,568,12" shape="circle"/>
-                        <area  onClick={this.handleToothClick} target="" alt="32" title="32" href="#!" coords="231,558,14" shape="circle"/>
-                        <area  onClick={this.handleToothClick} target="" alt="33" title="33" href="#!" coords="259,544,15" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="34" title="34" href="#!" coords="275,519,16" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="35" title="35" href="#!" coords="289,489,14" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="36" title="36" href="#!" coords="299,452,20" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="37" title="37" href="#!" coords="311,411,18" shape="circle"/>
-                        <area  onClick={this.handleToothClick} target="" alt="38" title="38" href="#!" coords="322,373,18" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="18" title="18" href="#!" coords="50,257,20" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="17" title="17" href="#!" coords="52,214,21" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="16" title="16" href="#!" coords="60,170,22" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="15" title="15" href="#!" coords="75,132,14" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="14" title="14" href="#!" coords="87,104,16" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="13" title="13" href="#!" coords="102,70,15" shape="circle"/>
-                        <area  onClick={this.handleToothClick} target="" alt="12" title="12" href="#!" coords="131,50,14" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="11" title="11" href="#!" coords="170,39,19" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="21" title="21" href="#!" coords="215,42,18" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="22" title="22" href="#!" coords="255,49,16" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="23" title="23" href="#!" coords="283,69,16" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="24" title="24" href="#!" coords="300,102,17" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="25" title="25" href="#!" coords="313,133,13" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="26" title="26" href="#!" coords="326,171,20" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="27" title="27" href="#!" coords="333,215,19" shape="circle"/>
-                        <area onClick={this.handleToothClick} target="" alt="28" title="28" href="#!" coords="338,258,18" shape="circle" />
-                    </map>
+                 <Col xs={6} className="odontogram">
+                     <ImageMapper width={285} imgWidth={385} src={OdontogramPicture} map={odontogramMap} onClick={area => this.handleToothClick(area)} />
                  </Col>
                  <Col xs={6}>
                     <Card>
@@ -205,13 +216,13 @@ export default class Odontogram extends React.Component {
                                 <OdontogramHeader currentTooth={this.state.currentTooth} />
         }
                     </Card>
-                    <Accordion defaultActiveKey="0">
+                    <Accordion>
                         <Card>
                             <Accordion.Toggle as={Card.Header} eventKey="0">Procedimentos Pré-Existentes</Accordion.Toggle>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body>
-                                <div className="addButton">
-                                        <Button><i className="fas fa-plus"></i></Button>
+                                <div className="add-button-area">
+                                        <Button className="add-button" onClick={()=>{this.props.openAddPreExistingProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
                                     </div>
                                 <DataTable  
                                     noDataComponent="Nenhum procedimento registrado"
@@ -227,8 +238,8 @@ export default class Odontogram extends React.Component {
                             <Accordion.Toggle as={Card.Header} eventKey="1">Procedimentos Realizados</Accordion.Toggle>
                             <Accordion.Collapse eventKey="1">
                                 <Card.Body>
-                                    <div className="addButton">
-                                        <Button><i className="fas fa-plus"></i></Button>
+                                    <div className="add-button-area">
+                                        <Button className="add-button" onClick={()=>{this.props.openAddPerformedProcedureForm(this.state.currentTooth)}}><i className="fas fa-plus"></i></Button>
                                     </div>
                                     <DataTable  
                                         noDataComponent="Nenhum procedimento registrado"
@@ -244,8 +255,8 @@ export default class Odontogram extends React.Component {
                             <Accordion.Toggle as={Card.Header} eventKey="2">Procedimentos Gerais Realizados</Accordion.Toggle>
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body>
-                                <div className="addButton">
-                                        <Button><i className="fas fa-plus"></i></Button>
+                                <div className="add-button-area">
+                                        <Button className="add-button" onClick={this.props.openAddGeneralProcedureForm}><i className="fas fa-plus"></i></Button>
                                     </div>
                                     <DataTable  
                                             noDataComponent="Nenhum procedimento registrado"
