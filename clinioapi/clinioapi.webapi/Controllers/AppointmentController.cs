@@ -1,12 +1,15 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using clinioapi.services;
+using clinioapi.webapi.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace clinioapi.webapi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
     public class AppointmentController: ControllerBase
     {
         private readonly AppointmentService _appointmentService;
@@ -14,6 +17,9 @@ namespace clinioapi.webapi.Controllers
         {
             _appointmentService = appointmentService;
         }
+
+       
+
 
         [HttpGet("{dentistId}/{date}")]
         public async Task<IActionResult> GetAppointments(string dentistId, DateTime date){

@@ -6,7 +6,7 @@ const ScheduleService = {
        // console.log(dentistId);
         //console.log(appointmentDate);
         return ClinioApi.get(`/Appointment/${dentistId}/${appointmentDate}`).then(function(response){
-            //console.log(response.data);
+            console.log(response.data);
             return response.data;
         });
         
