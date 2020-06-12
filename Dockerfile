@@ -10,7 +10,7 @@ COPY ./clinioapi/clinioapi.services/*.csproj ./clinioapi.services/
 COPY ./clinioapi/clinioapi.webapi/*.csproj ./clinioapi.webapi/
 
 RUN dotnet restore
-COPY . .
+COPY ./clinioapi/ .
 
 WORKDIR /src/clinioapi.core
 RUN dotnet build -c Release -o /app
