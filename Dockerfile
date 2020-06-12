@@ -9,6 +9,9 @@ COPY ./clinioapi/clinioapi.infrastructure/*.csproj ./clinioapi.infrastructure/
 COPY ./clinioapi/clinioapi.services/*.csproj ./clinioapi.services/
 COPY ./clinioapi/clinioapi.webapi/*.csproj ./clinioapi.webapi/
 
+RUN echo "America/Fortaleza" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
 RUN dotnet restore
 COPY ./clinioapi/ .
 
