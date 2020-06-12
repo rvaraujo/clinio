@@ -9,7 +9,6 @@ COPY ./clinioapi/clinioapi.infrastructure/*.csproj ./clinioapi.infrastructure/
 COPY ./clinioapi/clinioapi.services/*.csproj ./clinioapi.services/
 COPY ./clinioapi/clinioapi.webapi/*.csproj ./clinioapi.webapi/
 
-
 RUN dotnet restore
 COPY ./clinioapi/ .
 
