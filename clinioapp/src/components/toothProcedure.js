@@ -25,7 +25,7 @@ export default class ToothProcedure extends React.Component {
     }
 
     handleSave(){
-        var self = this;
+        
         this.clearError();
         if(this.state.procedure === undefined || this.state.procedure ===''){
             this.setState({message:'Informe o procedimento realizado', showErrorMessage:true});

@@ -14,8 +14,8 @@ namespace clinioapi.services
 
         public async Task<IList<dynamic>> Get(string dentistId, DateTime date){
             var appointments =  await _clinioContext.Appointments.Where(a=> a.DentistId.Equals(dentistId) && a.Date.Date.Equals(date.Date)).OrderBy(a=>a.Date).ToListAsync();
-            var startTime = DateTime.Now.Date.Add(new TimeSpan(8,0,0));
-            var endTime = DateTime.Now.Date.Add(new TimeSpan(19,30,0));
+            var startTime = date.Date.Add(new TimeSpan(8,0,0));
+            var endTime = date.Date.Add(new TimeSpan(19,30,0));
             var result = new List<dynamic>();
 
             for (DateTime t = startTime; t <= endTime; t = t.AddMinutes(30))

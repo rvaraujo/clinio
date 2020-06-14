@@ -69,14 +69,6 @@ componentDidMount(){
 
     self.setState({currentPatient: this.props.currentPatient});
 }
-   
-
-    // componentWillReceiveProps(nextProps){
-    //   console.log(nextProps);
-    // //    this.setState({currentPatient: nextProps.currentPatient},function(){
-      
-    // //    });
-    // }
     render(){
      
         return (
@@ -87,8 +79,8 @@ componentDidMount(){
                     <Form.Control as="input"
                         required
                         type="text"
-                        onChange={()=>{}}
-                       value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.name:''}
+                        onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, name:e.target.value}});}}
+                       value={this.state.currentPatient.name ||''}
                         placeholder="Nome do Paciente"
                     />
                     <Form.Control.Feedback type="invalid">Informe o Nome do Paciente</Form.Control.Feedback>
@@ -102,9 +94,7 @@ componentDidMount(){
                                                     InputAdornmentProps={{ disablePointerEvents:true }} 
                                                     variant="inline" 
                                                     inputVariant="outlined" 
-                                                    onChange={(e)=>{
-                                                        console.log(e.isValid());
-                                                    }} 
+                                                    onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, birthDate:e.format("DD/MM/yyyy")}});}}
                                                     format="DD/MM/yyyy"
                                                     inputValue={this.state.currentPatient!==undefined?Moment(this.state.currentPatient.birthDate).format('DD/MM/yyyy'):null} 
                                                     value={null}
@@ -117,7 +107,8 @@ componentDidMount(){
                             <Form.Label>E-mail</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.email:''}
+                                value={this.state.currentPatient.email || ''}
+                                onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, email:e.target.value}});}}
                                 placeholder="E-mail do Paciente"
                             />
                         </Form.Group>
@@ -125,6 +116,7 @@ componentDidMount(){
                             <Form.Label>Sexo</Form.Label>
                             <Form.Control   as="select" 
                                             required
+                                            onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, genderId:e.target.value}});}}
                                             value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.genderId:''}>
                                 {this.state.genders}
                             </Form.Control>
@@ -134,6 +126,7 @@ componentDidMount(){
                             <Form.Label>Convênio</Form.Label>
                             <Form.Control   as="select" 
                                             required
+                                            onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, insuranceId:e.target.value}});}}
                                             value={this.state.currentPatient !== undefined || this.state.currentPatient !== undefined?this.state.currentPatient.insuranceId:''}>
                                 {this.state.insurances}
                             </Form.Control>
@@ -147,8 +140,10 @@ componentDidMount(){
                             <Form.Control
                                 type="text"
                                 placeholder="CEP"
-                                value={this.state.currentPatient!==undefined?this.state.currentPatient.postalCode:''}
-                                onChange={(e)=>this.addressSearch(e.target.value)}
+                                value={this.state.currentPatient.postalCode||''}
+                                onChange={(e)=>{
+                                    this.setState({currentPatient:{...this.state.currentPatient, postalCode:e.target.value}});
+                                    this.addressSearch(e.target.value)}}
                             />
                         </Form.Group>
                         <Form.Group as={Col} md="4">
@@ -156,7 +151,8 @@ componentDidMount(){
                             <Form.Control
                                 type="text"
                                 readOnly
-                                value={this.state.currentPatient!==undefined?this.state.currentPatient.city:''}
+                                onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, city:e.target.value}});}}
+                                value={this.state.currentPatient.city||''}
                                 placeholder="Cidade"
                             />
                         </Form.Group>
@@ -165,7 +161,8 @@ componentDidMount(){
                             <Form.Control
                                 required
                                 readOnly
-                                value={this.state.currentPatient!==undefined?this.state.currentPatient.state:''}
+                                onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, state:e.target.value}});}}
+                                value={this.state.currentPatient.state||''}
                                 type="text"
                                 placeholder="Estado"
                             />
@@ -176,7 +173,8 @@ componentDidMount(){
                                 <Form.Label>Endereço</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    value={this.state.currentPatient!==undefined?this.state.currentPatient.address:''}
+                                    value={this.state.currentPatient.address||''}
+                                    onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, address:e.target.value}});}}
                                     placeholder="Endereço / Logradouro"
                                 />
                         </Form.Group>
@@ -184,7 +182,8 @@ componentDidMount(){
                                 <Form.Label>Número</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    value={this.state.currentPatient!==undefined?this.state.currentPatient.addressNumber:''}
+                                    value={this.state.currentPatient.addressNumber||''}
+                                    onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, addressNumber:e.target.value}});}}
                                     placeholder="Número"
                                 />
                         </Form.Group>
@@ -193,7 +192,8 @@ componentDidMount(){
                         <Form.Label>Complemento</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={this.state.currentPatient!==undefined?this.state.currentPatient.complement:''}
+                                        value={this.state.currentPatient.complement||''}
+                                        onChange={(e)=>{this.setState({currentPatient:{...this.state.currentPatient, complement:e.target.value}});}}
                                         placeholder="Complemento"
                                     />
                     </Form.Row>

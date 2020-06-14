@@ -20,6 +20,7 @@ namespace clinioapi.services
         }
 
         public async Task<Patient> Get(string id){
+           
             return  await _clinioContext.Patients.FirstOrDefaultAsync(p=>p.Id.Equals(id));
         }
 
