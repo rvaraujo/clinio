@@ -24,6 +24,7 @@ namespace clinioapi.webapi.Controllers
         [HttpGet("{dentistId}/{date}")]
         public async Task<IActionResult> GetAppointments(string dentistId, DateTime date){
             try{
+                 Thread.Sleep(new TimeSpan(0,0,2));
                 return Ok(await _appointmentService.Get(dentistId,date));
 
             }catch{
