@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using clinioapi.core.Entities;
@@ -35,7 +36,7 @@ namespace clinioapi.webapi.Controllers
          [HttpPut]
          public  IActionResult EditPatient(PatientViewModel model){
                try{
-                   
+                   Thread.Sleep(5000);
                     _patientService.SavePatient(_mapper.Map<Patient>(model));
                     return Ok();
 
@@ -47,6 +48,7 @@ namespace clinioapi.webapi.Controllers
          [HttpPost]
          public  IActionResult CreatePatient(PatientViewModel model){
                try{
+                   Thread.Sleep(5000);
                     _patientService.SavePatient(_mapper.Map<Patient>(model));
                     return Ok();
 
