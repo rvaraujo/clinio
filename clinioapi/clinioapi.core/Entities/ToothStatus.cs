@@ -30,6 +30,7 @@ namespace clinioapi.core.Entities
                     builder.Property(t=>t.Recovered).HasDefaultValue(false);
                     builder.Property(t=>t.Implanted).HasDefaultValue(false);
 
+                    //builder.HasOne(t=>t.Patient).WithMany(p=>p.ToothStatus).HasForeignKey(p=>p.PatientId);
                     builder.HasMany(t=>t.PerformedProcedures).WithOne().HasForeignKey(t=>new{t.PatientId,t.ToothId});
                 }
         }

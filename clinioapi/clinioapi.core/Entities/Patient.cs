@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -23,6 +24,7 @@ namespace clinioapi.core.Entities
         public string Complement { get; set; }
         public string Neighborhood { get; set; }
         public string Telephone { get; set; }
+        public virtual IList<ToothStatus> ToothStatus{ get; set; }
     }
         namespace Mapping{
             public class PatientMap: IEntityTypeConfiguration<Patient>{
@@ -43,6 +45,8 @@ namespace clinioapi.core.Entities
                     builder.Property(p => p.Telephone).HasMaxLength(14);
                     builder.Property(p => p.AddressNumber).HasMaxLength(10);
                     builder.Property(p => p.Address).HasMaxLength(300);
+
+                    builder.HasMany(p=>p.ToothStatus).WithOne(ts=>ts.Patient).HasForeignKey(ts=>ts.PatientId);
 
                     builder.HasOne(p=>p.Insurance).WithMany().HasForeignKey(p=>p.InsuranceId);
                     builder.HasOne(p=>p.Gender).WithMany().HasForeignKey(p=>p.GenderId);

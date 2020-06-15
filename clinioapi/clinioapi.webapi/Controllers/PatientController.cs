@@ -1,6 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using clinioapi.core.Entities;
 using clinioapi.services;
+using clinioapi.webapi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace clinioapi.webapi.Controllers
@@ -10,10 +13,12 @@ namespace clinioapi.webapi.Controllers
     public class PatientController: ControllerBase
     {
         private readonly  PatientService _patientService ;
+        private readonly IMapper _mapper;
 
-        public PatientController(PatientService patientService)
+        public PatientController(PatientService patientService,IMapper mapper)
         {
             _patientService = patientService;
+            _mapper = mapper;
         }
 
          [HttpGet]
@@ -21,6 +26,29 @@ namespace clinioapi.webapi.Controllers
 
              try{
                  return Ok(await _patientService.GetAll());
+
+             }catch{
+                 return BadRequest();
+             }
+         }
+
+         [HttpPut]
+         public  IActionResult EditPatient(PatientViewModel model){
+               try{
+                   
+                    _patientService.SavePatient(_mapper.Map<Patient>(model));
+                    return Ok();
+
+             }catch{
+                 return BadRequest();
+             }
+         }
+
+         [HttpPost]
+         public  IActionResult CreatePatient(PatientViewModel model){
+               try{
+                    _patientService.SavePatient(_mapper.Map<Patient>(model));
+                    return Ok();
 
              }catch{
                  return BadRequest();

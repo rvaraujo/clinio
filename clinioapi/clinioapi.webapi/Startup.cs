@@ -4,8 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using clinioapi.core.Entities;
 using clinioapi.infrastructure;
 using clinioapi.services;
+using clinioapi.webapi.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +38,14 @@ namespace clinioapi.webapi
             services.AddTransient<AppointmentService>();
             services.AddTransient<ParametersService>();
             services.AddTransient<ClinicService>();
+
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>{
+                cfg.CreateMap<Patient,PatientViewModel>();
+                cfg.CreateMap<PatientViewModel,Patient>();
+            });
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddDbContext<ClinioContext>(options =>
                 options.UseLazyLoadingProxies()
