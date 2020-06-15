@@ -10,6 +10,7 @@ namespace clinioapi.core.Entities
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
+        public string DocumentId { get; set; }
         public virtual Gender Gender { get; set; }
         public string  GenderId { get; set; }
         public virtual Insurance Insurance { get; set; }
@@ -32,7 +33,7 @@ namespace clinioapi.core.Entities
                     builder.Property(p => p.Name).IsRequired().HasMaxLength(200);
                     builder.Property(p => p.BirthDate).IsRequired();
                     builder.Property(p => p.GenderId).IsRequired();
-                    
+                    builder.Property(p => p.DocumentId).HasMaxLength(11);
                     builder.Property(p => p.InsuranceId).IsRequired();
                     builder.Property(p => p.PostalCode).HasMaxLength(8);
                     builder.Property(p => p.City).HasMaxLength(100);
