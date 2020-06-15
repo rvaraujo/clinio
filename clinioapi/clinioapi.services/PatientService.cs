@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,40 @@ namespace clinioapi.services
         public async Task<Patient> Get(string id){
            
             return  await _clinioContext.Patients.FirstOrDefaultAsync(p=>p.Id.Equals(id));
+        }
+
+        private void Clone(Patient source, ref Patient dest){
+            dest.Name = source.Name;
+               dest.InsuranceId = source.InsuranceId;
+               dest.GenderId = source.GenderId;
+               dest.DocumentId = source.DocumentId;
+               dest.Email = source.Email;   
+               dest.Address = source.Address;
+               dest.PostalCode = source.PostalCode;
+               dest.AddressNumber = source.AddressNumber;
+               dest.Complement = source.Complement;
+               dest.Neighborhood = source.Neighborhood;
+               dest.State = source.State;
+               dest.City = source.City;
+               dest.Telephone = source.Telephone;
+               dest.Complement = source.Complement;
+        }
+
+        public void SavePatient(Patient patient){
+            if(string.IsNullOrEmpty(patient.Id)){
+                var _tooths = _clinioContext.Tooths.OrderBy(t=>t.Id).ToList();
+                var _toothStatus = new List<ToothStatus>();
+                _tooths.ForEach(t=>{
+                    _toothStatus.Add(new ToothStatus{ToothId = t.Id});
+                });
+                patient.ToothStatus = _toothStatus;
+                patient.Id = Guid.NewGuid().ToString();
+                _clinioContext.Patients.Add(patient);
+            }else{
+               var _currentPatient = _clinioContext.Patients.FirstOrDefault(p=>p.Id.Equals(patient.Id));
+               Clone(patient, ref _currentPatient);     
+            }
+            _clinioContext.SaveChanges();
         }
 
         public async Task<dynamic> GetPatientRecord(string patientId){
