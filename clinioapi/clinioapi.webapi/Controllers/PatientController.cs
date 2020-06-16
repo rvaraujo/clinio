@@ -6,76 +6,90 @@ using AutoMapper;
 using clinioapi.core.Entities;
 using clinioapi.services;
 using clinioapi.webapi.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace clinioapi.webapi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PatientController: ControllerBase
+     [Authorize]
+    public class PatientController:  BaseController
     {
         private readonly  PatientService _patientService ;
-        private readonly IMapper _mapper;
 
-        public PatientController(PatientService patientService,IMapper mapper)
+        public PatientController(PatientService patientService, IMapper mapper): base(mapper)
         {
             _patientService = patientService;
-            _mapper = mapper;
         }
 
-         [HttpGet]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetPatients(){
 
              try{
                  return Ok(await _patientService.GetAll());
 
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpPut]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public  IActionResult EditPatient(PatientViewModel model){
                try{
-                   Thread.Sleep(new TimeSpan(0,0,2));
                     _patientService.SavePatient(_mapper.Map<Patient>(model));
                     return Ok();
 
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpPost]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public  IActionResult CreatePatient(PatientViewModel model){
                try{
-                   Thread.Sleep(new TimeSpan(0,0,2));
                     _patientService.SavePatient(_mapper.Map<Patient>(model));
                     return Ok();
 
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpGet("GetPatientRecord/{id}")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public  async Task<IActionResult> GetPatientRecord(string id){
              try{
                  return Ok(await _patientService.GetPatientRecord(id));
 
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpGet("{id}")]
+         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetPatient(string id){
 
              try{
                  return Ok(await _patientService.Get(id));
 
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
         

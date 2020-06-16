@@ -72,7 +72,6 @@ function getInsurances(){
 function* editPatientSaga(action){
     try{
         const payload = yield call(editPatient,action.payload);
-        console.log(payload);
         yield put({type:actionTypes.PATIENT_EDITED, payload});
 
     }catch(e){

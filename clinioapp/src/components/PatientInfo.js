@@ -49,7 +49,6 @@ export class PatientInfo extends Component{
     }
 
     render(){
-        console.log(this.props);
         return (
             <>
                 <Alert variant="warning" show={this.props.showError}>{this.props.alertMessage}</Alert>

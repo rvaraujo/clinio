@@ -14,7 +14,8 @@ namespace clinioapi.core.Entities
         public string ProfessionalId { get; set; }
         public virtual Gender Gender { get; set; }
         public string  GenderId { get; set; }
-        public string ProfilePicture { get; set; }
+
+        //public string ProfilePicture { get; set; }
         public string Telephone { get; set; }
 
         public override string ToString(){
@@ -30,16 +31,20 @@ namespace clinioapi.core.Entities
             public class DentistMap: IEntityTypeConfiguration<Dentist>{
                 public void Configure(EntityTypeBuilder<Dentist> builder)
                 {
-                    builder.HasKey(p => p.Id);
-                    builder.Property(p => p.Id).HasMaxLength(36).ValueGeneratedOnAdd();
-                    builder.Property(p => p.Name).IsRequired().HasMaxLength(200);
-                    builder.Property(p => p.BirthDate).IsRequired();
-                    builder.Property(p => p.GenderId).IsRequired();
-                    builder.Property(p => p.ProfessionalId).IsRequired().HasMaxLength(50);
-                    builder.Property(p => p.DocumentId).IsRequired().HasMaxLength(11);
-                    builder.Property(p => p.Telephone).HasMaxLength(14);
+                    builder.HasKey(d => d.Id);
+                    builder.Property(d => d.Id).HasMaxLength(36).ValueGeneratedOnAdd();
+                    builder.Property(d => d.Name).IsRequired().HasMaxLength(200);
+                    builder.Property(d => d.BirthDate).IsRequired();
+                    builder.Property(d => d.GenderId).IsRequired();
+                    builder.Property(d => d.ProfessionalId).IsRequired().HasMaxLength(50);
+                    builder.Property(d => d.DocumentId).IsRequired().HasMaxLength(11);
+                    builder.Property(d => d.Telephone).HasMaxLength(14);
                     
-                    builder.HasOne(p=>p.Gender).WithMany().HasForeignKey(p=>p.GenderId);
+                    builder.HasIndex(d=>d.DocumentId).IsUnique();
+                    builder.HasIndex(d=>d.Email).IsUnique();
+                    builder.HasIndex(d=>d.ProfessionalId).IsUnique();
+
+                    builder.HasOne(d=>d.Gender).WithMany().HasForeignKey(p=>p.GenderId);
                 }
             }
         } 
