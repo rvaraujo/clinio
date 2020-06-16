@@ -34,5 +34,18 @@ namespace clinioapi.webapi.Controllers
                  return BadRequest(GenerateErrorInfo(exception));
              }
         }
+
+        [HttpPatch("ChangeToothStatus")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+         public IActionResult ChangeToothStatus(ChangeToothStatusViewModel model){
+             try{
+                 _clinicService.ChangeToothStatus(model.PatientId,model.ToothId,model.Absent, model.Implanted, model.Recovered, model.Damaged);
+                 return Ok();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
+             }
+        }
+         }
     }
-}
