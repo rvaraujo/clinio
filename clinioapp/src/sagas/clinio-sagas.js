@@ -9,7 +9,10 @@ export default function* watcherSaga(){
     yield takeEvery("GET_PATIENT_RECORD",getPatientRecordSaga);
     yield takeEvery("GET_GENDERS",getGendersSaga);
     yield takeEvery("GET_INSURANCES",getInsurancesSaga);
+    yield takeEvery("GET_PROCEDURES",getProceduresSaga);
     yield takeEvery("EDIT_PATIENT",editPatientSaga);
+    yield takeEvery("EDIT_TOOTH_STATUS",editToothStatusSaga);
+    yield takeEvery("SAVE_PROCEDURE",saveProcedureSaga);
 }
 
 function* getAppointmentsSaga(action){
@@ -80,4 +83,58 @@ function editPatient(patient){
    
     return PatientService.editPatient(patient).then(function(res){
         return {patient:patient, isSuccess: res.isSuccess, hasError: !res.isSuccess, alertMessage: res.alertMessage}});
+}
+
+function* editToothStatusSaga(action){
+    try{
+        const payload = yield call(editToothStatus,action.payload);
+        if(payload.isSuccess){
+            
+            const getInfoUpdatedPayload = yield call(getPatientRecord,action.payload.patientId);
+            yield put({type:actionTypes.TOOTH_STATUS_CHANGED, payload:{...getInfoUpdatedPayload,toothId:action.payload.toothId}});
+        }
+        
+    }catch(e){
+        yield put({type:"API_ERRORED", payload:e});
+    }
+}
+
+function editToothStatus(toothStatus){
+    return PatientService.editToothStatus(toothStatus).then(function(res){
+        return res;
+    });
+}
+
+function* saveProcedureSaga(action){
+    try{
+        
+       const payload=  yield call(saveProcedures,action.payload);
+       yield put({type:actionTypes.PROCEDURE_SAVED, payload});
+       if(payload.isSuccess){
+           
+        const getInfoUpdatedPayload = yield call(getPatientRecord,action.payload.patientId);
+        yield put({type:actionTypes.TOOTH_STATUS_CHANGED, payload:{...getInfoUpdatedPayload,toothId:action.payload.toothId}});
+       }
+    }catch(e){
+        yield put({type:"API_ERRORED", payload:e});
+    }
+}
+
+function saveProcedures(procedure){
+    return PatientService.saveProcedure(procedure).then(function(res){
+        return res;
+    });
+}
+
+function* getProceduresSaga(){
+    try{
+        const payload = yield call(getProcedures);
+        yield put({type:actionTypes.PROCEDURES_LOADED, payload});
+    }catch(e){
+        yield put({type:"API_ERRORED", payload:e});
+    }
+}
+
+function getProcedures(){
+    return ParametersService.getProcedures().then(response=>{return response});
 }

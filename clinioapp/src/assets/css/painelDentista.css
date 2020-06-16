@@ -48,6 +48,11 @@
     margin-right: 10px;
 }
 
+.add-button-area{
+    float: right;
+    padding-bottom: 10px;
+}
+
 .header{
     background-color: rgba(0,0,0,.5);
     min-width:100vw;
@@ -100,6 +105,12 @@
     background-position-y: -150px;
     min-height: 80px;
     color:#fff;
+}
+
+.procedures-table{
+    max-height: 180px !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
 }
 
 /* .procedure-area:before {
@@ -159,5 +170,14 @@ body{
 
 .incomingmessage{
     color: #ffe57f !important;
+}
+
+.toothIdentification{
+    min-height: 100px;
+    padding: 10px;
+}
+
+.text-align-center{
+    text-align: center;
 }
 
