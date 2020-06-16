@@ -6,17 +6,18 @@ export const odontogramProcedures = {
         {
             name: '',
             selector: 'date',
-            cell: row=> Moment(row.date).format('DD/MM/yyyy')
+        cell: row=> <div className="procedure-data">{Moment(row.date).format('DD/MM/yyyy')}</div>
           },
         {
           name: '',
           selector: 'description',
-        cell:row=><div style={{whiteSpace:'break-spaces'}}>{row.description}</div>
+        cell:row=><div className="procedure-data" style={{whiteSpace:'break-spaces'}}>{row.description}</div>
          
         },
         {
             name: '',
-            selector: 'doctor'
+            selector: 'doctor',
+            cell:row=><div className="procedure-data">{row.doctor}</div>
           }
       ],
       preExistingProcedures : [
@@ -28,7 +29,7 @@ export const odontogramProcedures = {
         {
           name: '',
           selector: 'description',
-          cell:row=><div style={{whiteSpace:'break-spaces'}}>{row.description}</div>
+          cell:row=><div className="procedure-data" style={{whiteSpace:'break-spaces'}}>{row.description}</div>
         }
       ]
 };

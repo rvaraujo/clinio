@@ -61,10 +61,10 @@ export  class Odontogram extends Component{
         return (
             <>
                  <Container className="boxFlex fullheight content" fluid>
-                    <Col xs={6} className="odontogram">
+                    <Col xs={4} className="odontogram">
                         <ImageMapper width={285} imgWidth={385} src={OdontogramPicture} map={odontogramMap} onClick={area => this.handleToothClick(area)} />
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={8}>
                         <OdontogramHeader />
                         <Accordion>
                             <PreExistingProcedures />

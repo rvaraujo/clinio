@@ -22,7 +22,7 @@ const CustomLoader = () => (
       selector: 'time',
       maxWidth:'70px',
       minWidth:'70px',
-      cell: row=> moment(row.time, "YYY-MM-DDTHH:mm:ss-03:00").format("HH:mm")
+    cell: row=> <div className="appointment-time">{moment(row.time, "YYY-MM-DDTHH:mm:ss-03:00").format("HH:mm")}</div>
     },
     {
       name: '',
