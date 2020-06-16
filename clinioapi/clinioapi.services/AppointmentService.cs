@@ -24,7 +24,7 @@ namespace clinioapi.services
                 if(appointment is null)
                     result.Add(new {Time=t});
                 else
-                    result.Add(new {Time=t,Patient=appointment.Patient.Name, appointment.PatientId,appointment.DentistId});
+                    result.Add(new {Id=appointment.Id,Time=t,Patient=appointment.Patient.Name, appointment.PatientId,appointment.DentistId});
             }
             return result;
         }
