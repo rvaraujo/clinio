@@ -56,13 +56,25 @@ namespace clinioapi.webapi.Controllers
              }
          }
 
-         [HttpGet("GetProfiles")]
-           [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("GetProfiles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetProfiles(){
              try{
                  return Ok(await _parametersService.getProfiles());
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
+             }
+         }
+
+        [HttpGet("GetProcedures")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+         public async Task<IActionResult> GetProcedures(){
+             try{
+                 return Ok(await _parametersService.getProcedures());
              }catch(Exception exception){
                  return BadRequest(GenerateErrorInfo(exception));
              }
