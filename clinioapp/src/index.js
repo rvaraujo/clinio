@@ -1,31 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
-import { Provider } from 'react-redux';
-import store from './store/store.js';
+import store from './store/index';
+import Atendimento from './views/Atendimento';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
 
-// import Login from "views/Login.js";
-import Home from "views/home.js";
-import PainelDentista from "views/painelDentista.js";
-
-import 'moment/locale/pt-br';
-
-
-
-
-ReactDOM.render(
+render(
   <Provider store={store}>
-  <BrowserRouter>
+    <BrowserRouter>
     <Switch>
-    {/* <Route path="/login" render={props => <Login {...props} />} /> */}
-    <Route path="/home" render={props => <Home {...props} />} />
-    <Route path="/paineldentista" render={props => <PainelDentista {...props} />} />
-    <Redirect to="/paineldentista" />
+    <Route path="/Atendimento" render={props => <Atendimento {...props} />} />
+    <Redirect to="/Atendimento" />
     </Switch>
-  </BrowserRouter>
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,0 +1,25 @@
+.add-button-area{
+    justify-content: flex-end;
+    display: flex;
+}
+
+.add-button{
+    padding: 0.25rem 0.5rem;
+    font-size: 0.605rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+.padding-left-10{
+    padding-left: 10px;
+}
+
+.padding-top-10{
+    padding-top: 10px;
+}
+
+.odontogram{
+    display: flex;
+    justify-content: center;
+}
+
