@@ -42,7 +42,7 @@ function rootReducer(state = initialState, action) {
 
   if (action.type === actionTypes.OPEN_PATIENT_RECORD) {
     return Object.assign({}, state, {
-      isLoadingPatientRecord: true, currentPatientRecord: '',alertMessage:'', showError: false, isSuccess: false
+      isLoadingPatientRecord: true, currentTooth:'',currentPatientRecord: '',alertMessage:'', showError: false, isSuccess: false
     });
   }
 
