@@ -1,6 +1,7 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
 import AppointmentsService from '../services/AppointmentsService';
 import PatientService from '../services/PatientService';
+import ParametersService from '../services/ParametersService';
 import {actionTypes} from "../constants/action-types";
 
 export default function* watcherSaga(){
@@ -49,9 +50,7 @@ function* getGendersSaga(){
 }
 
 function getGenders(){
-    return fetch("https://clinioapi.herokuapp.com/Parameters/GetGenders").then(response =>
-    response.json()
-  );
+    return ParametersService.getGenders().then(response=>{return response});
 }
 
 function* getInsurancesSaga(){
@@ -64,9 +63,7 @@ function* getInsurancesSaga(){
 }
 
 function getInsurances(){
-    return fetch("https://clinioapi.herokuapp.com/Parameters/GetInsurances").then(response =>
-    response.json()
-  );
+    return ParametersService.getInsurances().then(response=>{return response});
 }
 
 function* editPatientSaga(action){
