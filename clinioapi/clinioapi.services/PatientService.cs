@@ -68,7 +68,7 @@ namespace clinioapi.services
             
             return new {
                 patient = patientInfo,
-                ToothStatus = toothStatus.Select(t=>new {Id = t.ToothId,Absent=t.Absent,Damaged = t.Damaged, Recovered = t.Recovered, Implanted= t.Implanted}).ToList(),
+                ToothStatus = toothStatus.Select(t=>new {Id = t.ToothId,Name = t.Tooth.Description,Absent=t.Absent,Damaged = t.Damaged, Recovered = t.Recovered, Implanted= t.Implanted}).ToList(),
                 preExistingProcedures = existingProcedures.Select(p=>new{ToothId=p.ToothId, Description= p.Procedure.Description}).ToList(),
                 performedProcedures = performedProcedures.Select(p=>new{ToothId= p.ToothId, Date = p.Appointment.Date,Doctor = p.Appointment.Dentist.ToString(),Description=p.Procedure.Description}).ToList(),
                 procedures = generalProcedures.Select(p=>new{Date = p.Appointment.Date,Doctor = p.Appointment.Dentist.ToString(),Description=p.Procedure.Description}).ToList()
