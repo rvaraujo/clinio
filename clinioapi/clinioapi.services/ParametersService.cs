@@ -21,5 +21,9 @@ namespace clinioapi.services
          public async Task<IList<KeyValuePair<int,string>>> getTooths(){
             return await _clinioContext.Tooths.OrderBy(t=>t.Id).Select(t=>new KeyValuePair<int, string>(t.Id, t.Description)).ToListAsync();
          }
+
+         public async Task<IList<KeyValuePair<string,string>>> getProfiles(){
+            return await _clinioContext.Profiles.OrderBy(p=>p.Id).Select(p=>new KeyValuePair<string, string>(p.Id, p.Description)).ToListAsync();
+         }
     }
 }

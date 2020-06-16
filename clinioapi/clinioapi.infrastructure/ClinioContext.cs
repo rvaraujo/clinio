@@ -17,6 +17,10 @@ namespace clinioapi.infrastructure
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Tooth> Tooths { get; set; }
         public DbSet<ToothStatus> ToothStatus { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
           protected override void OnModelCreating(ModelBuilder modelBuilder){
               modelBuilder.ApplyConfiguration(new PatientMap());
               modelBuilder.ApplyConfiguration(new GenderMap());
@@ -27,6 +31,8 @@ namespace clinioapi.infrastructure
               modelBuilder.ApplyConfiguration(new AppointmentMap());
               modelBuilder.ApplyConfiguration(new ToothMap());
               modelBuilder.ApplyConfiguration(new ToothStatusMap());
+              modelBuilder.ApplyConfiguration(new UserMap());
+              modelBuilder.ApplyConfiguration(new ProfileMap());
           }
     }
 }

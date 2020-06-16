@@ -48,6 +48,9 @@ namespace clinioapi.core.Entities
 
                     builder.HasMany(p=>p.ToothStatus).WithOne(ts=>ts.Patient).HasForeignKey(ts=>ts.PatientId);
 
+                    builder.HasIndex(p=>p.DocumentId).IsUnique();
+                    builder.HasIndex(p=>p.Email).IsUnique();
+
                     builder.HasOne(p=>p.Insurance).WithMany().HasForeignKey(p=>p.InsuranceId);
                     builder.HasOne(p=>p.Gender).WithMany().HasForeignKey(p=>p.GenderId);
                 }

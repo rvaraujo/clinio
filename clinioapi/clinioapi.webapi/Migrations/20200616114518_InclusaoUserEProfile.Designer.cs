@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using clinioapi.infrastructure;
@@ -9,9 +10,10 @@ using clinioapi.infrastructure;
 namespace clinioapi.webapi.Migrations
 {
     [DbContext(typeof(ClinioContext))]
-    partial class ClinioContextModelSnapshot : ModelSnapshot
+    [Migration("20200616114518_InclusaoUserEProfile")]
+    partial class InclusaoUserEProfile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,16 +96,7 @@ namespace clinioapi.webapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentId")
-                        .IsUnique();
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.HasIndex("GenderId");
-
-                    b.HasIndex("ProfessionalId")
-                        .IsUnique();
 
                     b.ToTable("Dentists");
                 });
@@ -205,12 +198,6 @@ namespace clinioapi.webapi.Migrations
                         .HasMaxLength(14);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DocumentId")
-                        .IsUnique();
-
-                    b.HasIndex("Email")
-                        .IsUnique();
 
                     b.HasIndex("GenderId");
 
@@ -380,12 +367,6 @@ namespace clinioapi.webapi.Migrations
                         .HasMaxLength(36);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("Login")
-                        .IsUnique();
 
                     b.HasIndex("ProfileId");
 

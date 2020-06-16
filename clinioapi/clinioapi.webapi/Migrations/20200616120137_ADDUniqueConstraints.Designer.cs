@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using clinioapi.infrastructure;
@@ -9,9 +10,10 @@ using clinioapi.infrastructure;
 namespace clinioapi.webapi.Migrations
 {
     [DbContext(typeof(ClinioContext))]
-    partial class ClinioContextModelSnapshot : ModelSnapshot
+    [Migration("20200616120137_ADDUniqueConstraints")]
+    partial class ADDUniqueConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

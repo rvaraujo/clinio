@@ -1,44 +1,70 @@
+using System;
 using System.Threading.Tasks;
+using AutoMapper;
 using clinioapi.services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace clinioapi.webapi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ParametersController: ControllerBase
+    [Authorize]
+    public class ParametersController: BaseController
     {
          private readonly  ParametersService _parametersService;
 
-         public ParametersController(ParametersService parametersService)
+         public ParametersController(ParametersService parametersService, IMapper mapper): base(mapper)
          {
              _parametersService = parametersService;
          }
 
          [HttpGet("GetGenders")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetGenders(){
              try{
                  return Ok(await _parametersService.getGenders());
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpGet("GetInsurances")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetInsurances(){
              try{
                  return Ok(await _parametersService.getInsurances());
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
 
          [HttpGet("GetTooths")]
+           [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
          public async Task<IActionResult> GetTooths(){
              try{
                  return Ok(await _parametersService.getTooths());
-             }catch{
-                 return BadRequest();
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
+             }
+         }
+
+         [HttpGet("GetProfiles")]
+           [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+         public async Task<IActionResult> GetProfiles(){
+             try{
+                 return Ok(await _parametersService.getProfiles());
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
              }
          }
     }
