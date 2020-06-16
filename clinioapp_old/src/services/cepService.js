@@ -5,7 +5,7 @@ const CepService = {
         return _axios.get('https://viacep.com.br/ws/'+postalCode+'/json/')
             .then(function(response){
                 if(response.status === 200){
-                    return {postalCode: response.cep,address: response.data.logradouro, city: response.data.localidade, state: response.data.uf,neighborhood: response.data.bairro }
+                    return {address: response.data.logradouro, city: response.data.localidade, state: response.data.uf,neighborhood: response.data.bairro }
                 }else{
                     return null;
                 }

@@ -138,15 +138,11 @@
     height: 48px;
     margin-left:20px;
 }
-html {
-    height: 100%;
-  }
 
 body{
     background: url('../img/blur-bg.jpg') center center no-repeat;
     position: fixed;
     background-size: cover;
-    min-height: 100%;
 }
 
 .appname{

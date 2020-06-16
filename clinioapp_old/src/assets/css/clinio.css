@@ -1,0 +1,54 @@
+.header-clinio{
+    background-color: #e0e0e0  !important;
+    border-radius: 0% !important;
+    display: flex;
+    align-items: center;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin: 0px !important;
+}
+
+.main{
+    padding: 0px !important;
+    margin: 0px !important;
+    min-height: 100vh !important;
+}
+
+.logo{
+    width: 42px;
+    height: 38px;
+    
+}
+
+.menu-toggle{
+    background-color: transparent !important;
+}
+
+.menu-toggle i{
+    color: #0d47a1 !important;
+    font-size: 1.6rem !important;
+}
+
+.logo-text{
+    margin-left: -15px !important;
+    font-family: 'Amaranth', sans-serif !important;
+    background-color: transparent !important;
+    color:#0d47a1 !important;
+    letter-spacing: 5px !important;
+    font-size: 2.3rem !important;
+}
+
+.ui.vertical.icon.menu .item>.icon:not(.dropdown){
+    display: inline !important;
+    font-size: 1rem !important;
+    margin-right: 5px !important;
+}
+
+.menu-icon{
+    font-size: 1.5rem !important;
+    margin-right: 5px !important;
+}
+
+.ui.icon.menu .item{
+    text-align: left !important;
+}
