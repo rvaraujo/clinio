@@ -79,5 +79,17 @@ namespace clinioapi.webapi.Controllers
                  return BadRequest(GenerateErrorInfo(exception));
              }
          }
+
+         [HttpGet("GetCid10Catalog")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+         public async Task<IActionResult> GetCid10Catalog(){
+             try{
+                 return Ok(await _parametersService.getCid10Catalog());
+             }catch(Exception exception){
+                 return BadRequest(GenerateErrorInfo(exception));
+             }
+         }
     }
 }
