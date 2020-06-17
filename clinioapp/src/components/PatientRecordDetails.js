@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Tab } from 'semantic-ui-react';
 import PatientInfo from './PatientInfo';
+import Odontogram from './Odontogram';
 
 export  default class PatientRecordDetails extends Component{
     constructor(props){
@@ -15,6 +16,10 @@ export  default class PatientRecordDetails extends Component{
               menuItem: 'Dados do Paciente',
               render: () => <Tab.Pane className="entireheight" attached={false}><PatientInfo /></Tab.Pane>,
             },
+            {
+                menuItem: 'Odontograma',
+                render: () => <Tab.Pane className="entireheight" attached={false}><Odontogram /></Tab.Pane>,
+              },
         ];
     }
 

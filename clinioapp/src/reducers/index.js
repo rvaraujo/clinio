@@ -9,9 +9,16 @@ const initialState = {
   currentPatient:'',
   genders: [],
   insurances: [],
+  procedures:[],
   isSuccess:false,
   showError: false,
-  alertMessage:''
+  alertMessage:'',
+  toothPerformedProcedures:[],
+  toothPreExistingProcedures:[],
+  currentTooth:'',
+  isSaving:false,
+  currentAppointmentId:'',
+  currentPatientId:''
 };
 
 function rootReducer(state = initialState, action) {
@@ -35,7 +42,7 @@ function rootReducer(state = initialState, action) {
 
   if (action.type === actionTypes.OPEN_PATIENT_RECORD) {
     return Object.assign({}, state, {
-      isLoadingPatientRecord: true, currentPatientRecord: '',alertMessage:'', showError: false, isSuccess: false
+      isLoadingPatientRecord: true, currentTooth:'',currentPatientRecord: '',alertMessage:'', showError: false, isSuccess: false
     });
   }
 
@@ -56,6 +63,13 @@ function rootReducer(state = initialState, action) {
     if(state.insurances.length === 0)
     return Object.assign({}, state, {
         insurances: state.insurances.concat(action.payload)
+    });
+  }
+
+  if (action.type === actionTypes.PROCEDURES_LOADED) {
+    if(state.procedures.length === 0)
+    return Object.assign({}, state, {
+      procedures: state.procedures.concat(action.payload)
     });
   }
 
@@ -82,6 +96,66 @@ function rootReducer(state = initialState, action) {
     });
   }
 
+  if (action.type === actionTypes.GET_TOOTH_PROCEDURES) 
+  {
+    let tooth = state.currentPatientRecord.toothStatus.filter((tooth)=>{
+      return tooth.id ===action.payload;
+    })[0];
+    let proceduresPerformed = state.currentPatientRecord.performedProcedures.filter((tooth)=>{
+      return tooth.toothId === action.payload;
+    });
+    let proceduresPreExisting = state.currentPatientRecord.preExistingProcedures.filter((tooth)=>{
+      return tooth.toothId === action.payload;
+    });
+    return Object.assign({}, state, {
+      toothPerformedProcedures:state.toothPerformedProcedures.slice(state.toothPerformedProcedures.length+1).concat(proceduresPerformed),
+      toothPreExistingProcedures:state.toothPreExistingProcedures.slice(state.toothPerformedProcedures.length+1).concat(proceduresPreExisting),
+      currentTooth: tooth
+    });
+  }
+
+  if (action.type === actionTypes.TOOTH_STATUS_CHANGED){
+    console.log(action.payload);
+    let tooth = action.payload.toothStatus.filter((tooth)=>{
+      return tooth.id ===action.payload.toothId;
+    })[0];
+    return Object.assign({},state,{
+      toothPerformedProcedures: action.payload.performedProcedures,
+      toothPreExistingProcedures:action.payload.preExistingProcedures,
+      currentPatientRecord:{...state.currentPatientRecord,procedures:action.payload.procedures ,toothStatus:action.payload.toothStatus},
+      currentTooth:tooth,
+      isSaving: false
+    });
+  }
+
+  if (action.type === actionTypes.IS_SAVING){
+    return Object.assign({},state,{
+      isSaving: true
+    });
+  }
+
+  if (action.type === actionTypes.IS_SAVED){
+    return Object.assign({},state,{
+      isSaving: false
+    });
+  }
+
+  if (action.type === actionTypes.SET_CURRENT_APPOINTMENT_ID){
+    return Object.assign({},state,{
+      currentAppointmentId: action.payload.appointmentId,
+      currentPatientId : action.payload.patientId
+    });
+  }
+
+  if (action.type === actionTypes.PROCEDURE_SAVED){
+    console.log(action.payload);
+    return Object.assign({},state,{
+      isSaving: false,
+      isSuccess: action.payload.isSuccess,
+      showError: !action.payload.isSuccess,
+      alertMessage: action.payload.alertMessage
+    });
+  }
   return state;
 }
 

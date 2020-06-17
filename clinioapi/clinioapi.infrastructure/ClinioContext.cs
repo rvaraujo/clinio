@@ -21,6 +21,8 @@ namespace clinioapi.infrastructure
         public DbSet<User> Users { get; set; }
 
         public DbSet<Profile> Profiles { get; set; }
+
+        public DbSet<CidCatalog> CidCatalog { get; set; }
           protected override void OnModelCreating(ModelBuilder modelBuilder){
               modelBuilder.ApplyConfiguration(new PatientMap());
               modelBuilder.ApplyConfiguration(new GenderMap());
@@ -33,6 +35,7 @@ namespace clinioapi.infrastructure
               modelBuilder.ApplyConfiguration(new ToothStatusMap());
               modelBuilder.ApplyConfiguration(new UserMap());
               modelBuilder.ApplyConfiguration(new ProfileMap());
+              modelBuilder.ApplyConfiguration(new CidCatalogMap());
           }
     }
 }

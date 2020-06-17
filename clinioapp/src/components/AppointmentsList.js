@@ -22,7 +22,7 @@ const CustomLoader = () => (
       selector: 'time',
       maxWidth:'70px',
       minWidth:'70px',
-      cell: row=> moment(row.time, "YYY-MM-DDTHH:mm:ss-03:00").format("HH:mm")
+    cell: row=> <div className="appointment-time">{moment(row.time, "YYY-MM-DDTHH:mm:ss-03:00").format("HH:mm")}</div>
     },
     {
       name: '',
@@ -47,9 +47,15 @@ export class AppointmentList extends Component{
 
     appointmentClick(row){
         if(row.patientId === undefined)
-          this.props.closePatientRecord();
+          {
+            this.props.setCurrentAppointment('','');
+            this.props.closePatientRecord();
+          }
         else
-        this.props.openPatientRecord(row.patientId);
+        {
+          this.props.setCurrentAppointment(row.id, row.patientId);
+          this.props.openPatientRecord(row.patientId);
+        }
     }
 
     render(){
@@ -83,6 +89,7 @@ const mapDispatchToProps = dispatch => {
     return {
       loading: () => dispatch({ type: actionTypes.LOADING_APPOINTMENTS }),
       closePatientRecord:()=>dispatch({type:actionTypes.CLOSE_PATIENT_RECORD}),
+      setCurrentAppointment:(appointmentId, patientId)=>dispatch({type:actionTypes.SET_CURRENT_APPOINTMENT_ID,payload:{appointmentId,patientId}}),
       openPatientRecord:(patientId)=>{
           dispatch({type:actionTypes.OPEN_PATIENT_RECORD});
           dispatch({type:"GET_PATIENT_RECORD",payload:{patientId}});

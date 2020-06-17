@@ -17,5 +17,13 @@ const ParametersService = {
            console.log(error);
         });
     },
+    getProcedures:function(){
+        return ClinioApi.get(`/Parameters/GetProcedures`,{headers:{Authorization:`Bearer ${token}`}}).then(function(response){
+            return response.data;
+        }).catch(function(error){
+           console.log('deu erro');
+           console.log(error);
+        });
+    },
 }
 export default ParametersService;
